@@ -751,7 +751,7 @@ GameObject:
   - component: {fileID: 1179405753}
   - component: {fileID: 1179405754}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: ShootingPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -818,8 +818,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1179405748}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.07, y: 1.79, z: 13.51}
-  m_LocalScale: {x: 12.874612, y: 1, z: 13.676421}
+  m_LocalPosition: {x: -0.09, y: 0.98, z: 13.51}
+  m_LocalScale: {x: 11.884452, y: 1, z: 13.165258}
   m_Children:
   - {fileID: 1693013088}
   m_Father: {fileID: 0}
@@ -836,7 +836,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
@@ -852,7 +852,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 90393465}
-  springForce: 1444
+  springForce: 1899
+  springMovementRange: 2.5
+  springMovementSpeed: 1111
+  velocity: 0
+  lowerRangeLimit: 0
 --- !u!1 &1638958941
 GameObject:
   m_ObjectHideFlags: 0
