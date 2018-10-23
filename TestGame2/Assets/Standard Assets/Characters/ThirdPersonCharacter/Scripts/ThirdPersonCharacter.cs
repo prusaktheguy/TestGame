@@ -28,7 +28,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		Vector3 m_CapsuleCenter;
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
-
+        float moveX;
+        float moveZ;
 
 		void Start()
 		{
@@ -50,7 +51,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			// turn amount and forward amount required to head in the desired
 			// direction.
 			if (move.magnitude > 1f) move.Normalize();
-			move = transform.InverseTransformDirection(move);
+            moveX = move.x;
+            moveZ = move.z;
+            move = transform.InverseTransformDirection(move);
 			CheckGroundStatus();
 			move = Vector3.ProjectOnPlane(move, m_GroundNormal);
 			m_TurnAmount = Mathf.Atan2(move.x, move.z);
@@ -65,7 +68,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			}
 			else
 			{
-				HandleAirborneMovement();
+				HandleAirborneMovement( move);
 			}
 
 			ScaleCapsuleForCrouching(crouch);
@@ -153,10 +156,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		}
 
 
-		void HandleAirborneMovement()
+		void HandleAirborneMovement(Vector3 move)
 		{
-			// apply extra gravity from multiplier:
-			Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
+            Vector3 airMove = new Vector3(moveX*10, m_Rigidbody.velocity.y, moveZ*10);
+            m_Rigidbody.velocity = Vector3.Lerp(  m_Rigidbody.velocity  , airMove, Time.deltaTime * 2f);
+
+            // apply extra gravity from multiplier:
+            Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
 			m_Rigidbody.AddForce(extraGravityForce);
 
 			m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;

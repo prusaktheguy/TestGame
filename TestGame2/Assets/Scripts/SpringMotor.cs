@@ -19,7 +19,8 @@ public class SpringMotor : MonoBehaviour {
     {
         if (col.gameObject.tag == "Player")
         {
-            player.AddForce(Vector3.up * springForce);
+            player.AddForce(Vector3.up*springForce);
+
         }
     }
 
