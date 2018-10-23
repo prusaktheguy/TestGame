@@ -71,6 +71,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_Character.Move(m_Move, crouch, m_Jump);
             m_Jump = false;
         }
+
+        // if player is colliding with shooting platform he should not be able to jump to not interfere with shooting mechanism
         void OnCollisionEnter(Collision col)
         {
             if (col.gameObject.tag == "ShootingPlatform")

@@ -12,9 +12,8 @@ public class SpringMotor : MonoBehaviour {
     //indicates that player should be shooted when spring reach lower limit
     bool shootMe = false;
     public float springMovementSpeed;
-    public float velocity;
     float upperRangeLimit;
-    public float lowerRangeLimit;
+    float lowerRangeLimit;
     Rigidbody m_Rigidbody;
 
 
@@ -30,10 +29,13 @@ public class SpringMotor : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
+        //check if shooting platform reached upper range limit, if it do, stop it's movement
         if (m_Rigidbody.velocity!=Vector3.zero && m_Rigidbody.position.y >= upperRangeLimit )
         {
             m_Rigidbody.velocity = Vector3.zero;
         }
+
+        //check if shooting platform spring is loaded (if it reached it lower range limit), if it is then launch the platform
         if (m_Rigidbody.position.y < lowerRangeLimit && shootMe)
         {
             player.AddForce(Vector3.up * springForce);
@@ -41,13 +43,13 @@ public class SpringMotor : MonoBehaviour {
             m_Rigidbody.AddForce(Vector3.up * springMovementSpeed);
             shootMe = false;
         }
-        velocity = m_Rigidbody.velocity.y;
 	}
     void OnCollisionEnter(Collision col)
     {
+        //check if collision of shooting platform with player occured
         if (col.gameObject.tag == "Player")
         {
-
+            //First time shooting shall start immediately, otherwise indicate that platform should start loading
             if (!isFirstTimeShooted)
             {
                 isFirstTimeShooted = true;
